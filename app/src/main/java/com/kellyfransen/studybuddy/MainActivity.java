@@ -8,6 +8,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     private Button button_planning;
+    private Button button_health;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,14 +19,22 @@ public class MainActivity extends AppCompatActivity {
         button_planning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openPlanning();
-
+                    openPage(Planning.class);
             }
         });
+
+        button_health = findViewById(R.id.button_health);
+        button_health.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openPage(Health.class);
+            }
+        });
+
     }
 
-    public void openPlanning() {
-        Intent intent = new Intent(this, Planning.class);
+    public void openPage(Class page) {
+        Intent intent = new Intent(this, page);
         startActivity(intent);
     }
 }
