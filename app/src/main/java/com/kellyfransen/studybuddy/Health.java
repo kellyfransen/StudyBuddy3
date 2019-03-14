@@ -40,8 +40,8 @@ public class Health extends AppCompatActivity implements SensorEventListener {
         });
     }
 
-    SensorManager sensorManager;
-    TextView stepCountTV = (textView) findViewByID(R.id.stepCountTV);
-    sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+//    SensorManager sensorManager;
+//    TextView stepCountTV = (textView) findViewByID(R.id.stepCountTV);
+//    sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
 }
