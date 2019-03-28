@@ -1,52 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:id="@+id/Health"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <Button
-        android:id="@+id/countButton2"
-        android:layout_width="57dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="104dp"
+        android:id="@+id/countButton3"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="24dp"
-        android:drawableLeft="@drawable/bottle_icon"
-        android:text="Button"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/pizza_icon"
+        app:layout_constraintStart_toEndOf="@+id/countButton2"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/countTV2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="84dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
+    <Button
+        android:id="@+id/countButton2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bottle_icon"
+        app:layout_constraintStart_toEndOf="@+id/countButton"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/countButton"
-        android:layout_width="57dp"
-        android:layout_height="57dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:drawableLeft="@drawable/coffee_icon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/countTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="84dp"
-        android:text="TextView"
+        android:background="@drawable/coffee_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
