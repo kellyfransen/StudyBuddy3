@@ -11,10 +11,12 @@
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Planning">
+        tools:context=".Planning"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="0dp">
 
-        <ListView
-            android:id="@+id/lvItems"
+        <com.baoyz.swipemenulistview.SwipeMenuListView
+            android:id="@+id/listView"
             android:layout_width="278dp"
             android:layout_height="473dp"
             android:layout_above="@+id/btnAddItem"
@@ -28,7 +30,26 @@
             android:layout_marginEnd="57dp"
             android:layout_marginBottom="34dp"
             android:background="#B0E0E6"
-            android:gravity="center" />
+            android:gravity="center">
+
+    </com.baoyz.swipemenulistview.SwipeMenuListView>
+
+        <!--<ListView-->
+            <!--android:id="@+id/lvItems"-->
+            <!--android:layout_width="278dp"-->
+            <!--android:layout_height="473dp"-->
+            <!--android:layout_above="@+id/btnAddItem"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_marginStart="76dp"-->
+            <!--android:layout_marginLeft="76dp"-->
+            <!--android:layout_marginTop="174dp"-->
+            <!--android:layout_marginEnd="57dp"-->
+            <!--android:layout_marginBottom="34dp"-->
+            <!--android:background="#B0E0E6"-->
+            <!--android:gravity="center" />-->
 
         <EditText
             android:id="@+id/etNewItem"
@@ -43,6 +64,19 @@
             android:hint="Enter a new item"
 
             />
+
+        <Button
+            android:id="@+id/etNewButton"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:layout_alignStart="@+id/listView"
+            android:layout_alignTop="@+id/listView"
+            android:layout_alignEnd="@+id/listView"
+            android:layout_alignBottom="@+id/listView"
+            android:layout_marginStart="169dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="21dp"
+            android:layout_marginBottom="424dp" />
 
         <Button
             android:id="@+id/btnAddItem"
