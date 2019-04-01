@@ -52,29 +52,29 @@ public class Planning extends AppCompatActivity {
                 SwipeMenuItem openItem = new SwipeMenuItem(
                         getApplicationContext());
                 // set item background
-                openItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
-                        0xCE)));
+                openItem.setBackground(new ColorDrawable(Color.rgb(66,
+                        244, 80)));
                 // set item width
-                openItem.setWidth(90);
-                // set item title
-                openItem.setTitle("Open");
+                openItem.setWidth(200);
                 // set item title fontsize
                 openItem.setTitleSize(18);
                 // set item title font color
                 openItem.setTitleColor(Color.WHITE);
                 // add to menu
                 menu.addMenuItem(openItem);
+                // set item title
+                openItem.setTitle("More");
 
                 // create "delete" item
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getApplicationContext());
                 // set item background
-                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
-                        0x3F, 0x25)));
+                deleteItem.setBackground(new ColorDrawable(Color.rgb(96,
+                        200, 80)));
                 // set item width
-                deleteItem.setWidth(90);
+                deleteItem.setWidth(200);
                 // set a icon
-                deleteItem.setIcon(R.drawable.ic_delete);
+                deleteItem.setIcon(R.drawable.cross1);
                 // add to menu
                 menu.addMenuItem(deleteItem);
             }
