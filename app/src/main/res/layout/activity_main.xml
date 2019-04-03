@@ -8,20 +8,21 @@
 
     <TextView
         android:id="@+id/studybuddy_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="246dp"
+        android:layout_height="152dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="66dp"
+        android:layout_marginEnd="80dp"
         android:fontFamily="sans-serif-black"
+        android:gravity="center_horizontal"
+        android:text="STUDY BUDDY"
         android:textAlignment="center"
-        android:textSize="40sp"
+        android:textSize="45sp"
         android:textStyle="bold"
-        android:typeface="normal"
-        tools:text="STUDY BUDDY" />
+        android:typeface="normal" />
 
     <Button
         android:id="@+id/button_health"
@@ -41,6 +42,7 @@
         android:textColor="@color/colorAccent"
         android:textSize="40sp"
         android:typeface="normal"
+        android:alpha="0.75"
         tools:text="Health" />
 
     <Button
@@ -60,6 +62,8 @@
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
         android:textSize="40sp"
+        android:alpha="0.75"
         tools:text="planning" />
 
 </RelativeLayout>
+
