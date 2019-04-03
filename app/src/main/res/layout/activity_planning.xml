@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Planning">
+    tools:context=".Planning"
+    android:background="#ff9999"
+    >
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -12,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Planning"
-        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
         <com.baoyz.swipemenulistview.SwipeMenuListView
@@ -24,15 +26,15 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="76dp"
-            android:layout_marginLeft="76dp"
+            android:layout_marginStart="66dp"
+            android:layout_marginLeft="66dp"
             android:layout_marginTop="174dp"
-            android:layout_marginEnd="57dp"
+            android:layout_marginEnd="67dp"
             android:layout_marginBottom="34dp"
-            android:background="#B0E0E6"
+            android:background="@color/colorAccent"
             android:gravity="center">
 
-    </com.baoyz.swipemenulistview.SwipeMenuListView>
+        </com.baoyz.swipemenulistview.SwipeMenuListView>
 
 
         <EditText
@@ -56,6 +58,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
+            android:background="@color/colorAccent"
             android:onClick="onAddItem"
             android:text="Add Item" />
 
@@ -69,6 +72,7 @@
         android:layout_marginTop="60dp"
         android:layout_marginEnd="8dp"
         android:text="Planning"
+        android:textColor="@color/colorAccent"
         android:textSize="45sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
