@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#ff9999"
+    android:background="#f58f84"
     >
 
     <TextView
@@ -15,9 +15,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="82dp"
-        android:layout_marginTop="273dp"
-        android:layout_marginEnd="83dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="282dp"
+        android:layout_marginEnd="81dp"
         android:fontFamily="@font/assistant_semibold"
         android:gravity="center_horizontal"
         android:text="STUDY BUDDY"
@@ -29,42 +29,42 @@
     <Button
         android:id="@+id/button_health"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="210dp"
-        android:layout_height="77dp"
+        android:layout_width="248dp"
+        android:layout_height="60dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="76dp"
-        android:layout_marginEnd="74dp"
-        android:layout_marginBottom="238dp"
+        android:layout_marginStart="81dp"
+        android:layout_marginEnd="82dp"
+        android:layout_marginBottom="133dp"
         android:alpha="0.90"
-        android:background="@color/colorAccent"
+        android:background="@drawable/btn_rounded"
         android:fontFamily="@font/assistant"
         android:text="@string/health"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
-        android:textSize="32sp"
+        android:textSize="30sp"
         android:typeface="normal"
         tools:text="Health" />
 
     <Button
         android:id="@+id/button_planning"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="210dp"
-        android:layout_height="77dp"
+        android:layout_width="248dp"
+        android:layout_height="60dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="75dp"
-        android:layout_marginEnd="73dp"
-        android:layout_marginBottom="140dp"
+        android:layout_marginStart="81dp"
+        android:layout_marginEnd="82dp"
+        android:layout_marginBottom="62dp"
         android:alpha="0.90"
-        android:background="@color/colorAccent"
+        android:background="@drawable/btn_rounded"
         android:fontFamily="@font/assistant"
         android:text="@string/planning"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
-        android:textSize="32sp"
+        android:textSize="30sp"
         tools:text="planning" />
 
     <ImageView
@@ -77,7 +77,7 @@
         android:layout_marginStart="96dp"
         android:layout_marginTop="86dp"
         android:layout_marginEnd="96dp"
-        app:srcCompat="@drawable/Studybuddy_logo_transparent" />
+        app:srcCompat="@drawable/studybuddy_logo_transparent" />
 
 </RelativeLayout>
 

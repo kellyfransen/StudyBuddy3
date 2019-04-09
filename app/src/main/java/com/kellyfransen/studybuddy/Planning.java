@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,9 +38,9 @@ public class Planning extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planning);
-        SwipeMenuListView listView = findViewById(R.id.listView);
+        SwipeMenuListView listView = (SwipeMenuListView) findViewById(R.id.listView);
 
-        listView = findViewById(R.id.listView);
+        //listView = findViewById(R.id.listView);
         //lvItems.setOnItemClickListener(this);
         readItems();
         itemsAdapter = new ArrayAdapter<String>(this,
@@ -54,8 +55,8 @@ public class Planning extends AppCompatActivity {
                 SwipeMenuItem openItem = new SwipeMenuItem(
                         getApplicationContext());
                 // set item background
-                openItem.setBackground(new ColorDrawable(Color.rgb(250,
-                        250, 255)));
+                openItem.setBackground(new ColorDrawable(Color.rgb(255,
+                        255, 255)));
                 // set item width
                 openItem.setWidth(200);
                 // set item title fontsize
@@ -71,18 +72,45 @@ public class Planning extends AppCompatActivity {
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getApplicationContext());
                 // set item background
-                deleteItem.setBackground(new ColorDrawable(Color.rgb(250,
-                        250, 255)));
+                deleteItem.setBackground(new ColorDrawable(Color.rgb(255,
+                        255, 255)));
                 // set item width
                 deleteItem.setWidth(200);
                 // set a icon
                 deleteItem.setIcon(R.drawable.cross);
                 // add to menu
                 menu.addMenuItem(deleteItem);
+
             }
         };
 
-            listView.setMenuCreator(creator);
+        listView.setMenuCreator(creator);
+
+        listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index) {
+                    case 0:
+                        // open
+                        items.remove(position);
+                        itemsAdapter.notifyDataSetChanged();
+                        writeItems();
+                        break;
+                    case 1:
+                        // delete
+                        items.remove(position);
+                        itemsAdapter.notifyDataSetChanged();
+                        writeItems();
+                        break;
+                }
+                // false : close the menu; true : not close the menu
+                return false;
+            }
+        });
+    }
+
+
+
 
 //        findViewById(R.id.etNewButton).setOnClickListener(
 //                new View.OnClickListener() {
@@ -92,23 +120,6 @@ public class Planning extends AppCompatActivity {
 //                                "blablabal", Toast.LENGTH_SHORT).show();
 //                    }
 //                });
-
-
-//                public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-//                    switch (index) {
-//                        case 0:
-//                            // open
-//                            break;
-//                        case 1:
-//                            // delete
-//                            break;
-//                    }
-//                    // false : close the menu; true : not close the menu
-//                    return false;
-//                }
-            };
-
-
 
 
     // Setup remove listener method call
@@ -141,7 +152,7 @@ public class Planning extends AppCompatActivity {
 //                                               View item, int pos, long id) {
 //                        items.
 //                    }
-//        }
+
 
 
     public void onAddItem(View v) {

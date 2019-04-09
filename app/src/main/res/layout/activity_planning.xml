@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Planning"
-    android:background="#ff9999"
+    android:background="#f58f84"
     >
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -28,10 +28,10 @@
             android:layout_alignParentEnd="true"
             android:layout_marginStart="66dp"
             android:layout_marginLeft="66dp"
-            android:layout_marginTop="174dp"
+            android:layout_marginTop="153dp"
             android:layout_marginEnd="67dp"
-            android:layout_marginBottom="34dp"
-            android:background="@color/colorAccent"
+            android:layout_marginBottom="55dp"
+            android:background="@drawable/btn_rounded"
             android:gravity="center">
 
         </com.baoyz.swipemenulistview.SwipeMenuListView>
@@ -39,17 +39,22 @@
 
         <EditText
             android:id="@+id/etNewItem"
-            android:layout_width="wrap_content"
+            android:layout_width="312dp"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/btnAddItem"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="-6dp"
+
+            android:layout_marginEnd="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginBottom="6dp"
             android:layout_toStartOf="@+id/btnAddItem"
             android:layout_toLeftOf="@+id/btnAddItem"
-            android:hint="Enter a new item"
-
-            />
+            android:hint="Enter a new item" />
 
         <Button
             android:id="@+id/btnAddItem"
@@ -58,7 +63,10 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorAccent"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/btn_rounded"
             android:onClick="onAddItem"
             android:text="Add Item" />
 
@@ -71,9 +79,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="8dp"
-        android:text="Planning"
-        android:textColor="@color/colorAccent"
-        android:textSize="45sp"
+        android:fontFamily="@font/assistant_semibold"
+        android:text="PLANNING"
+        android:textColor="@color/colorPrimary"
+        android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
