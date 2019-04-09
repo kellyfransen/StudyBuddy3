@@ -22,6 +22,9 @@ import java.util.List;
 
 public class Health extends AppCompatActivity implements View.OnClickListener, SensorEventListener {
       Button addButton;
+      ArrayList<Button> healthButtons = new ArrayList<>();
+
+
     //Declarations for step counter
 
     ConstraintLayout healthLayout;
@@ -66,9 +69,10 @@ public class Health extends AppCompatActivity implements View.OnClickListener, S
 
         String name = getResources().getResourceEntryName(item.getItemId());
         Button button = new Button(this);
-        button.setHeight(30);
-        button.setWidth(30);
+        button.setHeight(20);
+        button.setWidth(20);
         final CountButton countButton = new CountButton(button);
+        countButton.name=name;
         button.setX(addButton.getX());
         button.setY(addButton.getY());
         button.setOnClickListener(new View.OnClickListener() {
@@ -79,8 +83,9 @@ public class Health extends AppCompatActivity implements View.OnClickListener, S
         });
         button.setBackground(this.getResources().getDrawable(getResources()
                 .getIdentifier(name + "_icon", "drawable", getPackageName())));
+        healthButtons.add(button);
         healthLayout.addView(button);
-        Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, name + "button added!", Toast.LENGTH_SHORT).show();
 
         //move addButton
         addButton.setX(addButton.getX() + addButton.getWidth() + 100);
