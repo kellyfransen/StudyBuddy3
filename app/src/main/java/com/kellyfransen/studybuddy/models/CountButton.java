@@ -1,5 +1,6 @@
 package com.kellyfransen.studybuddy.models;
 
+import android.graphics.Color;
 import android.widget.Button;
 
 public class CountButton {
@@ -15,6 +16,8 @@ public class CountButton {
     public void increment(){
         this.count++;
         this.button.setText(count + "");
+        button.setTextSize(35);
+        button.setTextColor(Color.parseColor("#404040"));
     }
 
 }

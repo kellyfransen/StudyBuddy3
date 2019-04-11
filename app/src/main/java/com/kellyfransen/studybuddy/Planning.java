@@ -40,7 +40,7 @@ public class Planning extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_planning);
-        SwipeMenuListView listView = findViewById(R.id.listView);
+        final SwipeMenuListView listView = findViewById(R.id.listView);
         readItems();
         itemsAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, items);
@@ -53,31 +53,21 @@ public class Planning extends AppCompatActivity {
                 // create "open" item
                 SwipeMenuItem openItem = new SwipeMenuItem(
                         getApplicationContext());
-                // set item background
                 openItem.setBackground(new ColorDrawable(Color.rgb(255,
                         255, 255)));
-                // set item width
                 openItem.setWidth(200);
-                // set item title fontsize
                 openItem.setTitleSize(18);
-                // set item title font color
                 openItem.setTitleColor(Color.GRAY);
-                // add to menu
                 menu.addMenuItem(openItem);
-                // set item title
                 openItem.setTitle("More");
 
                 // create "delete" item
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getApplicationContext());
-                // set item background
                 deleteItem.setBackground(new ColorDrawable(Color.rgb(255,
                         255, 255)));
-                // set item width
                 deleteItem.setWidth(200);
-                // set cross icon
                 deleteItem.setIcon(R.drawable.cross);
-                // add to menu
                 menu.addMenuItem(deleteItem);
 
             }
@@ -91,7 +81,15 @@ public class Planning extends AppCompatActivity {
                 switch (index) {
                     case 0:
                         //open course page
-                        openPage(Planning.class);
+                        if (position==0) {
+                            Intent courseintent = new Intent(listView.getContext(), Course1.class);
+                            startActivityForResult(courseintent, 0);
+                        }
+                        if (position==1) {
+                            Intent courseintent = new Intent(listView.getContext(), Course2.class);
+                            startActivityForResult(courseintent, 1);
+                        }
+                        //openPage(Planning.class);
                         break;
                     case 1:
                         // delete course
@@ -103,9 +101,9 @@ public class Planning extends AppCompatActivity {
                 return false;
             }
 
-            public void openPage(Class page) {
-                startActivity(new Intent(Planning.this, Course1.class));
-            }
+//            public void openPage(Class page) {
+//                startActivity(new Intent(Planning.this, Course1.class));
+//            }
         });
     }
 

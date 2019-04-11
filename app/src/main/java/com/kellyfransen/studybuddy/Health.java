@@ -92,10 +92,9 @@ public class Health extends AppCompatActivity implements View.OnClickListener, S
         //move addButton
         addButton.setX(addButton.getX() + addButton.getWidth() + 100);
         if (addButton.getX() > healthLayout.getWidth() - 200) {
-            addButton.setY(addButton.getY() + 60);
-            addButton.setX(24);
+            addButton.setY(addButton.getY() + 300);
+            addButton.setX(100);
         }
-
 
         return super.onContextItemSelected(item);
     }

@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
-        android:id="@+id/cigarette"
-        android:title="cigarette" />
+        android:id="@+id/apple"
+        android:title="apple" />
+
+    <item
+        android:id="@+id/beer"
+        android:title="beer" />
 
     <item
         android:id="@+id/coffee"
         android:title="coffee" />
-
 
     <item
         android:id="@+id/pizza"
         android:title="pizza" />
 
     <item
+        android:id="@+id/soda"
+        android:title="soda" />
+
+    <item
         android:id="@+id/water"
-        android:title="water" />
+        android:title="water"
+        android:layout_width="5dp" />
 
 
 </menu>
