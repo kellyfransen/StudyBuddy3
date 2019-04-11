@@ -81,7 +81,6 @@
         android:layout_marginTop="60dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/assistant_semibold"
-        android:text="PLANNING"
         android:textColor="@color/colorPrimary"
         android:textSize="36sp"
         android:textStyle="bold"
