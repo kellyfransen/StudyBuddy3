@@ -10,17 +10,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <receiver android:name=".CountWidgetActivity">
+        <receiver android:name=".CountWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/count_widget_activity_info" />
+                android:resource="@xml/count_widget_info" />
         </receiver>
 
-        <activity android:name=".countWidgetConfig" />
+        <activity android:name=".CountWidgetConfigureActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".Planning" />
         <activity android:name=".Health" />
         <activity android:name=".MainActivity">
@@ -31,15 +36,6 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".models.CountWidgetProvider">
-            <intent-filter>
-                <action android:name="android.countwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/countwidget_info" />
-        </receiver>
 
         <meta-data
             android:name="preloaded_fonts"

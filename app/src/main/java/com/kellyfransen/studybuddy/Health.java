@@ -11,7 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,8 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Health extends AppCompatActivity implements View.OnClickListener, SensorEventListener {
-      Button addButton;
-      ArrayList<Button> healthButtons = new ArrayList<>();
+    Button addButton;
+    public static ArrayList<Button> healthButtons = new ArrayList<>();
 
 
     //Declarations for step counter
@@ -52,9 +54,8 @@ public class Health extends AppCompatActivity implements View.OnClickListener, S
 
                 getSystemService(Context.SENSOR_SERVICE);
 
+
         registerForContextMenu(addButton);
-
-
     }
 
     @Override
@@ -72,7 +73,7 @@ public class Health extends AppCompatActivity implements View.OnClickListener, S
         button.setHeight(20);
         button.setWidth(20);
         final CountButton countButton = new CountButton(button);
-        countButton.name=name;
+        countButton.name = name;
         button.setX(addButton.getX());
         button.setY(addButton.getY());
         button.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +86,7 @@ public class Health extends AppCompatActivity implements View.OnClickListener, S
                 .getIdentifier(name + "_icon", "drawable", getPackageName())));
         healthButtons.add(button);
         healthLayout.addView(button);
+        CountWidgetConfigureActivity.activeButtons.add(name);
         Toast.makeText(this, name + "button added!", Toast.LENGTH_SHORT).show();
 
         //move addButton
@@ -97,7 +99,6 @@ public class Health extends AppCompatActivity implements View.OnClickListener, S
 
         return super.onContextItemSelected(item);
     }
-
 
 
     //STEP COUNTER
