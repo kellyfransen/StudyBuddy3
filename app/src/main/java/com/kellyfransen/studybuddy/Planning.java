@@ -90,7 +90,7 @@ public class Planning extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(Planning.this, "hey", Toast.LENGTH_SHORT).show();
-                startActivity(intentsList.get(position));
+                //startActivity(intentsList.get(position));
             }
         });
 
