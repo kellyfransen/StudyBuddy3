@@ -1,5 +1,6 @@
 package com.kellyfransen.studybuddy;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -22,7 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Course extends AppCompatActivity {
+public class Course extends Activity {
 
     private static final String TAG = "Course";
 
@@ -35,12 +36,10 @@ public class Course extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
 
-        Bundle bundle = getIntent().getExtras();
-        String name = bundle.getString("name");
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("name");
         TextView header = findViewById(R.id.textView);
         header.setText(name);
-
-
 
         SwipeMenuListView listView = (SwipeMenuListView) findViewById(R.id.listView);
         readItems();

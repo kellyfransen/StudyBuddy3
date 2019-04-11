@@ -31,10 +31,11 @@ import java.util.ArrayList;
 public class Planning extends AppCompatActivity {
 
     private static final String TAG = "Planning";
-
+    ArrayList<Intent> intentsList = new ArrayList<>();
     ArrayList<String> items;
     ArrayAdapter<String> itemsAdapter;
     ListView lvItems;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,29 +86,38 @@ public class Planning extends AppCompatActivity {
 
         listView.setMenuCreator(creator);
 
-        listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                switch (index) {
-                    case 0:
-                        // open course page
-                        //startActivity(new Intent(this, Planning.class));
-                        //openPage(Planning.class);
-                        break;
-                    case 1:
-                        // delete course
-                        items.remove(position);
-                        itemsAdapter.notifyDataSetChanged();
-                        writeItems();
-                        break;
-                }
-                return false;
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(Planning.this, "hey", Toast.LENGTH_SHORT).show();
+                startActivity(intentsList.get(position));
             }
-
-//            public void openPage(Class page) {
-//                startActivity(new Intent(Planning.this, Course1.class));
-//            }
         });
+
+//        listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+//
+//                    Toast.makeText(Planning.this, "hey", Toast.LENGTH_SHORT).show();
+//                switch (index) {
+//                    case 0:
+//                        startActivity(intentsList.get(position));
+//
+//                        break;
+//                    case 1:
+//                        // delete course
+//                        items.remove(position);
+//                        itemsAdapter.notifyDataSetChanged();
+//                        writeItems();
+//                        break;
+//                }
+//                return false;
+//            }
+//
+////            public void openPage(Class page) {
+////                startActivity(new Intent(Planning.this, Course1.class));
+////            }
+//        });
     }
 
     public void onAddItem(View v) {
@@ -116,11 +126,10 @@ public class Planning extends AppCompatActivity {
         itemsAdapter.add(itemText);
         etNewItem.setText("");
         writeItems();
-        Intent intent = new Intent(this, Course.class);
+        Intent intent = new Intent(Planning.this, Course.class);
         intent.putExtra("name", itemText);
-        startActivity(intent);
-
-    }
+        intentsList.add(intent);
+            }
 
     private void readItems() {
         File filesDir = getFilesDir();

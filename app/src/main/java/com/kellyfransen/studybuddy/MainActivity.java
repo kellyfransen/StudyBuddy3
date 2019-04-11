@@ -20,10 +20,10 @@ public class MainActivity extends AppCompatActivity {
         button_planning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    openPage(Planning.class);
+                openPage(Planning.class);
+
             }
         });
-
         button_health = findViewById(R.id.button_health);
         button_health.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,15 +31,12 @@ public class MainActivity extends AppCompatActivity {
                 openPage(Health.class);
             }
         });
-
     }
 
     public void openPage(Class page) {
         Intent intent = new Intent(this, page);
         startActivity(intent);
     }
-
-
 }
 
 
