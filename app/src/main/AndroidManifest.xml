@@ -10,9 +10,10 @@
         android:roundIcon="@drawable/sb_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".Planning"></activity>
-        <activity android:name=".Health"></activity>
+        <activity android:name=".Course2"></activity>
+        <activity android:name=".Course1" />
+        <activity android:name=".Planning" />
+        <activity android:name=".Health" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

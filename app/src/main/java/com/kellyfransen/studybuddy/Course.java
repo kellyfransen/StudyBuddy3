@@ -3,43 +3,45 @@ package com.kellyfransen.studybuddy;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.apache.commons.io.FileUtils;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
-import com.kellyfransen.studybuddy.R;
+
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Planning extends AppCompatActivity {
+public class Course extends AppCompatActivity {
 
-    private static final String TAG = "Planning";
+    private static final String TAG = "Course";
 
     ArrayList<String> items;
     ArrayAdapter<String> itemsAdapter;
     ListView lvItems;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_course);
 
-        setContentView(R.layout.activity_planning);
+        Bundle bundle = getIntent().getExtras();
+        String name = bundle.getString("name");
+        TextView header = findViewById(R.id.textView);
+        header.setText(name);
+
+
+
         SwipeMenuListView listView = (SwipeMenuListView) findViewById(R.id.listView);
         readItems();
         itemsAdapter = new ArrayAdapter<String>(this,
@@ -50,23 +52,6 @@ public class Planning extends AppCompatActivity {
 
             @Override
             public void create(SwipeMenu menu) {
-                // create "open" item
-                SwipeMenuItem openItem = new SwipeMenuItem(
-                        getApplicationContext());
-                // set item background
-                openItem.setBackground(new ColorDrawable(Color.rgb(255,
-                        255, 255)));
-                // set item width
-                openItem.setWidth(200);
-                // set item title fontsize
-                openItem.setTitleSize(18);
-                // set item title font color
-                openItem.setTitleColor(Color.GRAY);
-                // add to menu
-                menu.addMenuItem(openItem);
-                // set item title
-                openItem.setTitle("More");
-
                 // create "delete" item
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getApplicationContext());
@@ -116,9 +101,6 @@ public class Planning extends AppCompatActivity {
         itemsAdapter.add(itemText);
         etNewItem.setText("");
         writeItems();
-        Intent intent = new Intent(this, Course.class);
-        intent.putExtra("name", itemText);
-        startActivity(intent);
 
     }
 
