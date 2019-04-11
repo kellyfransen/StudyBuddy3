@@ -40,7 +40,7 @@ public class Planning extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_planning);
-        SwipeMenuListView listView = (SwipeMenuListView) findViewById(R.id.listView);
+        SwipeMenuListView listView = findViewById(R.id.listView);
         readItems();
         itemsAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, items);
@@ -90,9 +90,8 @@ public class Planning extends AppCompatActivity {
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        // open course page
-                        //startActivity(new Intent(this, Planning.class));
-                        //openPage(Planning.class);
+                        //open course page
+                        openPage(Planning.class);
                         break;
                     case 1:
                         // delete course
@@ -104,9 +103,9 @@ public class Planning extends AppCompatActivity {
                 return false;
             }
 
-//            public void openPage(Class page) {
-//                startActivity(new Intent(Planning.this, Course1.class));
-//            }
+            public void openPage(Class page) {
+                startActivity(new Intent(Planning.this, Course1.class));
+            }
         });
     }
 
@@ -116,10 +115,6 @@ public class Planning extends AppCompatActivity {
         itemsAdapter.add(itemText);
         etNewItem.setText("");
         writeItems();
-        Intent intent = new Intent(this, Course.class);
-        intent.putExtra("name", itemText);
-        startActivity(intent);
-
     }
 
     private void readItems() {
