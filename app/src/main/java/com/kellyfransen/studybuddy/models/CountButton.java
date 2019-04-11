@@ -5,7 +5,7 @@ import android.widget.Button;
 public class CountButton {
     private int count = 0;
     private Button button;
-    private String name;
+    public String name;
 
     public CountButton(Button button){
         this.button = button;

@@ -11,7 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Health extends AppCompatActivity implements View.OnClickListener, SensorEventListener {
-      Button addButton;
+    Button addButton;
+    public static ArrayList<Button> healthButtons = new ArrayList<>();
+
+
     //Declarations for step counter
 
     ConstraintLayout healthLayout;
@@ -49,9 +54,8 @@ public class Health extends AppCompatActivity implements View.OnClickListener, S
 
                 getSystemService(Context.SENSOR_SERVICE);
 
+
         registerForContextMenu(addButton);
-
-
     }
 
     @Override
@@ -66,9 +70,10 @@ public class Health extends AppCompatActivity implements View.OnClickListener, S
 
         String name = getResources().getResourceEntryName(item.getItemId());
         Button button = new Button(this);
-        button.setHeight(30);
-        button.setWidth(30);
+        button.setHeight(20);
+        button.setWidth(20);
         final CountButton countButton = new CountButton(button);
+        countButton.name = name;
         button.setX(addButton.getX());
         button.setY(addButton.getY());
         button.setOnClickListener(new View.OnClickListener() {
@@ -79,8 +84,10 @@ public class Health extends AppCompatActivity implements View.OnClickListener, S
         });
         button.setBackground(this.getResources().getDrawable(getResources()
                 .getIdentifier(name + "_icon", "drawable", getPackageName())));
+        healthButtons.add(button);
         healthLayout.addView(button);
-        Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
+        CountWidgetConfigureActivity.activeButtons.add(name);
+        Toast.makeText(this, name + "button added!", Toast.LENGTH_SHORT).show();
 
         //move addButton
         addButton.setX(addButton.getX() + addButton.getWidth() + 100);
@@ -92,7 +99,6 @@ public class Health extends AppCompatActivity implements View.OnClickListener, S
 
         return super.onContextItemSelected(item);
     }
-
 
 
     //STEP COUNTER

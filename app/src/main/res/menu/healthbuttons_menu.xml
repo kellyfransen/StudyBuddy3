@@ -7,12 +7,7 @@
     <item
         android:id="@+id/coffee"
         android:title="coffee" />
-    <item
-        android:id="@+id/energy_drink"
-        android:title="energy drink" />
-    <item
-        android:id="@+id/fries"
-        android:title="fries" />
+
 
     <item
         android:id="@+id/pizza"
