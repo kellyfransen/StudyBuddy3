@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class CountButton extends AppCompatButton {
-    private int count = 0;
+    public int count = 0;
     public String name;
 
     public CountButton(Context context, String name) {
@@ -21,8 +21,7 @@ public class CountButton extends AppCompatButton {
         this.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                count++;
-                setText(count + "");
+                increment();
             }
         });
     }
@@ -31,7 +30,8 @@ public class CountButton extends AppCompatButton {
     //count (call on click of button)
     public void increment() {
 
-
+        count++;
+        setText(count + "");
     }
 
 }

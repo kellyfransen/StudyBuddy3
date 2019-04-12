@@ -7,38 +7,60 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import static com.kellyfransen.studybuddy.R.id.widgetListView;
 
 /**
  * The configuration screen for the {@link CountWidget CountWidget} AppWidget.
  */
 public class CountWidgetConfigureActivity extends Activity {
     public static ArrayList<String> activeButtons = new ArrayList<>();
-
+    ListView widgetListView;
 
     private static final String PREFS_NAME = "com.kellyfransen.studybuddy.CountWidget";
     private static final String PREF_PREFIX_KEY = "appwidget_";
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-    View.OnClickListener mOnClickListener;
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-
-        ListAdapter adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,activeButtons);
-        ListView widgetListView = findViewById(R.id.widgetListView);
+        setContentView(R.layout.count_widget_configure);
+        widgetListView = findViewById(R.id.widgetListView);
+        ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, activeButtons);
         widgetListView.setAdapter(adapter);
+        widgetListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final Context context = CountWidgetConfigureActivity.this;
+                String name = String.valueOf(parent.getItemAtPosition(position));
+
+                // It is the responsibility of the configuration activity to update the app widget
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                CountWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
+
+                // Make sure we pass back the original appWidgetId
+                Intent intent = new Intent();
+                intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+                intent.putExtra("name", name);
+                Toast.makeText(context, name, Toast.LENGTH_SHORT).show();
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
 
         // Set the result to CANCELED.  This will cause the widget host to cancel
         // out of the widget placement if the user presses the back button.
         setResult(RESULT_CANCELED);
 
-        setContentView(R.layout.count_widget_configure);
 
         // Find the widget id from the intent.
         Intent intent = getIntent();
@@ -54,7 +76,7 @@ public class CountWidgetConfigureActivity extends Activity {
             return;
         }
 
-        
+
     }
 
 
