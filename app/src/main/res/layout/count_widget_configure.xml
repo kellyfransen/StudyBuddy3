@@ -7,9 +7,6 @@
 
     <ListView
         android:id="@+id/widgetListView"
-        style="@style/Widget.AppCompat.Light.ListView.DropDown"
         android:layout_width="match_parent"
-        android:layout_height="317dp"
-        android:headerDividersEnabled="false" />
-
+        android:layout_height="match_parent" />
 </LinearLayout>
