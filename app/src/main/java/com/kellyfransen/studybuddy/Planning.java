@@ -21,9 +21,6 @@ import android.widget.Toast;
 
 import android.view.LayoutInflater;
 import android.content.Context;
-import android.view.ViewGroup.LayoutParams;
-import android.os.Build;
-import android.view.Gravity;
 import android.widget.RelativeLayout;
 
 import org.apache.commons.io.FileUtils;
@@ -101,23 +98,6 @@ public class Planning extends AppCompatActivity {
                         break;
                     case 1:
                         // delete course
-//                        agree = (Button) findViewById(R.id.agree);
-//                        relativeLayout = (RelativeLayout) findViewById(R.id.popup);
-//                        layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-//                        final ViewGroup nullParent = null;
-//                        ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.popup, nullParent);
-//
-//                        popupWindow = new PopupWindow(container,400,400,true);
-//                        popupWindow.showAtLocation(relativeLayout, Gravity.LEFT, 200,200);
-//
-//                        container.setOnTouchListener(new View.OnTouchListener() {
-//                            @Override
-//                            public boolean onTouch(View v, MotionEvent event) {
-//                                popupWindow.dismiss();
-//                                return false;
-//                            }
-//                        });
-
                         items.remove(position);
                         itemsAdapter.notifyDataSetChanged();
                         writeItems();
