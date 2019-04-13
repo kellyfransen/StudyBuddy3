@@ -24,14 +24,20 @@ import com.kellyfransen.studybuddy.models.CountButton;
 import java.util.ArrayList;
 import java.util.List;
 
+/**The health screen is where the buttons are added for keeping track of (both positive and negative) consumptions
+ * it also includes the step counter
+ */
+
+//implement onclicklistener for the buttons and sensoreventlistener for the step counter
 public class Health extends AppCompatActivity implements View.OnClickListener, SensorEventListener {
+    //create the button to add new buttons
     public static Button addButton;
+
+    //this ArrayList stores the created buttons
     public static ArrayList<CountButton> healthButtons = new ArrayList<>();
 
-
-    //Declarations for step counter
-
     ConstraintLayout healthLayout;
+    //Declarations for step counter
     boolean running = false;
     SensorManager sensorManager;
     TextView stepCountTV;
@@ -43,6 +49,8 @@ public class Health extends AppCompatActivity implements View.OnClickListener, S
         setContentView(R.layout.activity_health);
         healthLayout = findViewById(R.id.Health);
         addButton = findViewById(R.id.addButton);
+
+        //open the context menu on click
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,49 +58,61 @@ public class Health extends AppCompatActivity implements View.OnClickListener, S
             }
         });
 
+        //values needed to move the addbutton around when new buttons are created
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         screenWidth = size.x;
 
         stepCountTV = (TextView) findViewById(R.id.stepCountTV);
-
+//create sensormanager for the step counter
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-
+//register health layout for contextmenu: this means that buttons can be created by long-pressing on the screen
+// as well as using the add button
         registerForContextMenu(healthLayout);
-        System.out.println(("screenWidth = " + screenWidth));
+
+        //When the health screen is closed, all dynamically created buttons are killed
+        //so they have to be added to the view every time the health screen is opened
         for (CountButton b : healthButtons) {
             healthLayout.addView(b);
             moveAddButton();
         }
     }
 
+
+    //create the selection menu
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
+        //get the list items from the menu xml file
         getMenuInflater().inflate(R.menu.healthbuttons_menu, menu);
     }
 
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        //get which button is pressed and store it in name
         String name = getResources().getResourceEntryName(item.getItemId());
+        //create countbutton
         final CountButton countButton = new CountButton(this, name);
-
+//create it in the current location of the add button
         countButton.setX(addButton.getX());
         countButton.setY(addButton.getY());
+
+        //add the name to activeButtons ArrayList so they now show up when creating a widget button
         CountWidgetConfigureActivity.activeButtons.add(name);
 
+        //add button to view and add it to the healthbuttons ArrayList
         healthLayout.addView(countButton);
         healthButtons.add(countButton);
-
+        //move the add button so it doesn't overlay with the new button
         moveAddButton();
 
 
         return super.onContextItemSelected(item);
     }
-
+//move addbutton by incrementing its x and y values
     private void moveAddButton() {
         addButton.setX(addButton.getX() +315);
         if (addButton.getX() > screenWidth - 315) {
@@ -123,7 +143,6 @@ public class Health extends AppCompatActivity implements View.OnClickListener, S
     protected void onPause() {
         super.onPause();
         running = false;
-
     }
 
     @Override
@@ -131,9 +150,7 @@ public class Health extends AppCompatActivity implements View.OnClickListener, S
         if (running) {
             stepCountTV.setText(String.valueOf(event.values[0]));
         }
-
     }
-
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
@@ -145,6 +162,8 @@ public class Health extends AppCompatActivity implements View.OnClickListener, S
 
     }
 
+    //The buttons have to be destroyed when the health screen is closed to avoid errors
+    //and to prevent mistakes in the buttons arraylist
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -153,67 +172,3 @@ public class Health extends AppCompatActivity implements View.OnClickListener, S
         }
     }
 }
-    /*
-            final Button waterButton = (Button) findViewById(R.id.countButton2);
-            waterButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    healthCount[1]++;
-                    waterButton.setText(healthCount[1] + "");
-                }
-            });
-
-            final Button pizzaButton = (Button) findViewById(R.id.countButton3);
-            pizzaButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    healthCount[2]++;
-                    pizzaButton.setText(healthCount[2] + "");
-                }
-            });
-
-
-
-
-
-
-                Button coffeeButton = (Button) findViewById(R.id.CountButton);
-                coffeeButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        healthCount[0]++;
-                        TextView countTV0 = (TextView) findViewById(R.id.countTV);
-                        countTV0.setText(healthCount[0] + "");
-                    }
-                });
-
-                Button waterButton = (Button) findViewById(R.id.countButton2);
-                waterButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        healthCount[1]++;
-                        TextView countTV2 = (TextView) findViewById(R.id.countTV2);
-                        countTV2.setText(healthCount[1] + "");
-                    }
-                });
-
-            }
-
-
-
-
-
-
-
-
-
-
-                /*
-                private String name = item.getItemId();
-                private String buttonName = name + "Button";
-
-                Button = new Button(this);
-                coffeeButton.setText("coffee");
-
-            }
-        */

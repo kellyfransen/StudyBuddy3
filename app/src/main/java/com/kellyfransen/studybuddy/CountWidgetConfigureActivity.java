@@ -22,13 +22,16 @@ import java.util.ArrayList;
 import static com.kellyfransen.studybuddy.R.id.widgetListView;
 
 /**
- * The configuration screen for the {@link CountWidget CountWidget} AppWidget.
+ * This is the code for the initial popup screen when the widget is created
+ * so the user can choose which of the buttons (first created in health screen) to add as widget
+ * To make it a lot quicker to increment a most used button
  */
 public class CountWidgetConfigureActivity extends Activity {
+    //this ArrayList stores the created buttons
     public static ArrayList<String> activeButtons = new ArrayList<>();
-    //public static ArrayList<CountWidget> countWidgets = new ArrayList<>();
     ListView widgetListView;
 
+    //create the references for saving the position and name so they can be exchanged between widget config and the widget itself
     private static final String PREFS_NAME = "com.kellyfransen.studybuddy.CountWidget";
     private static final String PREF_PREFIX_KEY = "appwidget_";
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
@@ -37,18 +40,28 @@ public class CountWidgetConfigureActivity extends Activity {
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.count_widget_configure);
+        //this is the listview for selecting which button the user wants to create as widget
         widgetListView = findViewById(R.id.widgetListView);
+        //which needs an adapter of course
         ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, activeButtons);
         widgetListView.setAdapter(adapter);
+
+        //check which item is selected from the list
         widgetListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final Context context = CountWidgetConfigureActivity.this;
+
+                //get the name of the button from the ArrayList of buttons
                 String name = String.valueOf(parent.getItemAtPosition(position));
+
+                //save name and position in the sharedPreferences xml file
                 saveTitlePref(context, mAppWidgetId, name);
                 savePosition(context, mAppWidgetId, position);
+
+                //create remoteview and set the text on the button to the count value
                 RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.count_widget);
-                views.setTextViewText(R.id.widgetButton, Health.healthButtons.get(0).count + "");
+                views.setTextViewText(R.id.widgetButton, Health.healthButtons.get(position).count + "");
 
 
                 // It is the responsibility of the configuration activity to update the app widget
@@ -66,7 +79,6 @@ public class CountWidgetConfigureActivity extends Activity {
         // Set the result to CANCELED.  This will cause the widget host to cancel
         // out of the widget placement if the user presses the back button.
         setResult(RESULT_CANCELED);
-
 
         // Find the widget id from the intent.
         Intent intent = getIntent();
@@ -86,31 +98,12 @@ public class CountWidgetConfigureActivity extends Activity {
     }
 
 
-    {
-//        mOnClickListener = new View.OnClickListener() {
-//            public void onClick(View v) {
-//                final Context context = CountWidgetConfigureActivity.this;
-//
-//                // When the button is clicked, store the string locally
-//                String widgetText = mAppWidgetText.getText().toString();
-//                saveTitlePref(context, mAppWidgetId, widgetText);
-//
-//                // It is the responsibility of the configuration activity to update the app widget
-//                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-//                CountWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
-//
-//                // Make sure we pass back the original appWidgetId
-//                Intent resultValue = new Intent();
-//                resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
-//                setResult(RESULT_OK, resultValue);
-//                finish();
-//            }
-//        };
-    }
-
     public CountWidgetConfigureActivity() {
         super();
     }
+//this function comes with the widget when it is made in the project
+    // It normally stores a string which has to be added to a button in the example widget
+    //I used it to pass the name of the button
 
     // Write the prefix to the SharedPreferences object for this widget
     static void saveTitlePref(Context context, int appWidgetId, String text) {
@@ -137,12 +130,15 @@ public class CountWidgetConfigureActivity extends Activity {
         prefs.apply();
     }
 
+    //Function based on the saveTitlePref: does the same but for the position int
+    //save position integer to sharedpreferences
     public void savePosition(Context context, int appWidgetId, int position) {
         SharedPreferences.Editor prefs = context.getSharedPreferences("position", 0).edit();
         prefs.putInt(PREF_PREFIX_KEY + appWidgetId, position);
         prefs.apply();
     }
 
+    //retrieve position from the sharedPreferences
     static int loadPosition(Context context, int appWidgetId) {
         SharedPreferences prefs = context.getSharedPreferences("position", 0);
         int position = prefs.getInt(PREF_PREFIX_KEY + appWidgetId, 0);
