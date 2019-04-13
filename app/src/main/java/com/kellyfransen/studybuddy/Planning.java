@@ -7,14 +7,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import android.view.LayoutInflater;
+import android.content.Context;
+import android.view.ViewGroup.LayoutParams;
+import android.os.Build;
+import android.view.Gravity;
+import android.widget.RelativeLayout;
 
 import org.apache.commons.io.FileUtils;
 
@@ -36,6 +46,12 @@ public class Planning extends AppCompatActivity {
     ArrayAdapter<String> itemsAdapter;
     ListView lvItems;
 
+    private PopupWindow popupWindow;
+    private Context mContext;
+    private RelativeLayout relativeLayout;
+    private Button agree;
+    private LayoutInflater layoutInflater;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +71,7 @@ public class Planning extends AppCompatActivity {
                 // create more item
                 SwipeMenuItem openItem = new SwipeMenuItem(
                         getApplicationContext());
-                openItem.setBackground(new ColorDrawable(Color.rgb(255,
-                        255, 255)));
+                openItem.setBackground(new ColorDrawable(Color.rgb(255, 255, 255)));
                 openItem.setWidth(200);
                 openItem.setTitleSize(18);
                 openItem.setTitleColor(Color.GRAY);
@@ -66,12 +81,11 @@ public class Planning extends AppCompatActivity {
                 // create delete item
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getApplicationContext());
-                deleteItem.setBackground(new ColorDrawable(Color.rgb(255,
-                        255, 255)));
+                deleteItem.setBackground(new ColorDrawable(Color.rgb(255, 255, 255)));
                 deleteItem.setWidth(200);
+                //add image to the delete item
                 deleteItem.setIcon(R.drawable.cross);
                 menu.addMenuItem(deleteItem);
-
             }
         };
 
@@ -87,6 +101,23 @@ public class Planning extends AppCompatActivity {
                         break;
                     case 1:
                         // delete course
+//                        agree = (Button) findViewById(R.id.agree);
+//                        relativeLayout = (RelativeLayout) findViewById(R.id.popup);
+//                        layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+//                        final ViewGroup nullParent = null;
+//                        ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.popup, nullParent);
+//
+//                        popupWindow = new PopupWindow(container,400,400,true);
+//                        popupWindow.showAtLocation(relativeLayout, Gravity.LEFT, 200,200);
+//
+//                        container.setOnTouchListener(new View.OnTouchListener() {
+//                            @Override
+//                            public boolean onTouch(View v, MotionEvent event) {
+//                                popupWindow.dismiss();
+//                                return false;
+//                            }
+//                        });
+
                         items.remove(position);
                         itemsAdapter.notifyDataSetChanged();
                         writeItems();
