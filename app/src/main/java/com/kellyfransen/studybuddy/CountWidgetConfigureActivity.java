@@ -6,39 +6,67 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import static com.kellyfransen.studybuddy.R.id.widgetListView;
 
 /**
  * The configuration screen for the {@link CountWidget CountWidget} AppWidget.
  */
 public class CountWidgetConfigureActivity extends Activity {
     public static ArrayList<String> activeButtons = new ArrayList<>();
-
+    //public static ArrayList<CountWidget> countWidgets = new ArrayList<>();
+    ListView widgetListView;
 
     private static final String PREFS_NAME = "com.kellyfransen.studybuddy.CountWidget";
     private static final String PREF_PREFIX_KEY = "appwidget_";
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-    View.OnClickListener mOnClickListener;
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-
-        ListAdapter adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,activeButtons);
-        ListView widgetListView = findViewById(R.id.widgetListView);
+        setContentView(R.layout.count_widget_configure);
+        widgetListView = findViewById(R.id.widgetListView);
+        ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, activeButtons);
         widgetListView.setAdapter(adapter);
+        widgetListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final Context context = CountWidgetConfigureActivity.this;
+                String name = String.valueOf(parent.getItemAtPosition(position));
+                saveTitlePref(context, mAppWidgetId, name);
+                savePosition(context, mAppWidgetId, position);
+                RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.count_widget);
+                views.setTextViewText(R.id.widgetButton, Health.healthButtons.get(0).count + "");
+
+
+                // It is the responsibility of the configuration activity to update the app widget
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                CountWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
+
+                // Make sure we pass back the original appWidgetId
+                Intent intent = new Intent();
+                intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
 
         // Set the result to CANCELED.  This will cause the widget host to cancel
         // out of the widget placement if the user presses the back button.
         setResult(RESULT_CANCELED);
 
-        setContentView(R.layout.count_widget_configure);
 
         // Find the widget id from the intent.
         Intent intent = getIntent();
@@ -54,7 +82,7 @@ public class CountWidgetConfigureActivity extends Activity {
             return;
         }
 
-        
+
     }
 
 
@@ -109,6 +137,15 @@ public class CountWidgetConfigureActivity extends Activity {
         prefs.apply();
     }
 
+    public void savePosition(Context context, int appWidgetId, int position) {
+        SharedPreferences.Editor prefs = context.getSharedPreferences("position", 0).edit();
+        prefs.putInt(PREF_PREFIX_KEY + appWidgetId, position);
+        prefs.apply();
+    }
 
+    static int loadPosition(Context context, int appWidgetId) {
+        SharedPreferences prefs = context.getSharedPreferences("position", 0);
+        int position = prefs.getInt(PREF_PREFIX_KEY + appWidgetId, 0);
+        return position;
+    }
 }
-
