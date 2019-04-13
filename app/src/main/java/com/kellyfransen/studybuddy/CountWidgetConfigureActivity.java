@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ import static com.kellyfransen.studybuddy.R.id.widgetListView;
  */
 public class CountWidgetConfigureActivity extends Activity {
     public static ArrayList<String> activeButtons = new ArrayList<>();
+    //public static ArrayList<CountWidget> countWidgets = new ArrayList<>();
     ListView widgetListView;
 
     private static final String PREFS_NAME = "com.kellyfransen.studybuddy.CountWidget";
@@ -42,6 +45,11 @@ public class CountWidgetConfigureActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final Context context = CountWidgetConfigureActivity.this;
                 String name = String.valueOf(parent.getItemAtPosition(position));
+                saveTitlePref(context, mAppWidgetId, name);
+                savePosition(context, mAppWidgetId, position);
+                RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.count_widget);
+                views.setTextViewText(R.id.widgetButton, Health.healthButtons.get(0).count + "");
+
 
                 // It is the responsibility of the configuration activity to update the app widget
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
@@ -50,8 +58,6 @@ public class CountWidgetConfigureActivity extends Activity {
                 // Make sure we pass back the original appWidgetId
                 Intent intent = new Intent();
                 intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
-                intent.putExtra("name", name);
-                Toast.makeText(context, name, Toast.LENGTH_SHORT).show();
                 setResult(RESULT_OK, intent);
                 finish();
             }
@@ -131,6 +137,15 @@ public class CountWidgetConfigureActivity extends Activity {
         prefs.apply();
     }
 
+    public void savePosition(Context context, int appWidgetId, int position) {
+        SharedPreferences.Editor prefs = context.getSharedPreferences("position", 0).edit();
+        prefs.putInt(PREF_PREFIX_KEY + appWidgetId, position);
+        prefs.apply();
+    }
 
+    static int loadPosition(Context context, int appWidgetId) {
+        SharedPreferences prefs = context.getSharedPreferences("position", 0);
+        int position = prefs.getInt(PREF_PREFIX_KEY + appWidgetId, 0);
+        return position;
+    }
 }
-
