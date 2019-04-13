@@ -40,6 +40,7 @@ public class Planning extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //create swipeable listview menu
         setContentView(R.layout.activity_planning);
         final SwipeMenuListView listView = findViewById(R.id.listView);
         readItems();
@@ -51,7 +52,7 @@ public class Planning extends AppCompatActivity {
 
             @Override
             public void create(SwipeMenu menu) {
-                // create "open" item
+                // create more item
                 SwipeMenuItem openItem = new SwipeMenuItem(
                         getApplicationContext());
                 openItem.setBackground(new ColorDrawable(Color.rgb(255,
@@ -62,7 +63,7 @@ public class Planning extends AppCompatActivity {
                 menu.addMenuItem(openItem);
                 openItem.setTitle("More");
 
-                // create "delete" item
+                // create delete item
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getApplicationContext());
                 deleteItem.setBackground(new ColorDrawable(Color.rgb(255,
@@ -76,40 +77,27 @@ public class Planning extends AppCompatActivity {
 
         listView.setMenuCreator(creator);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(Planning.this, "hey", Toast.LENGTH_SHORT).show();
-                //startActivity(intentsList.get(position));
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index) {
+                    case 0:
+                        //open new page with course listview
+                        startActivity(intentsList.get(position));
+                        break;
+                    case 1:
+                        // delete course
+                        items.remove(position);
+                        itemsAdapter.notifyDataSetChanged();
+                        writeItems();
+                        break;
+                }
+                return false;
             }
         });
-
-//        listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-//
-//                    Toast.makeText(Planning.this, "hey", Toast.LENGTH_SHORT).show();
-//                switch (index) {
-//                    case 0:
-//                        startActivity(intentsList.get(position));
-//
-//                        break;
-//                    case 1:
-//                        // delete course
-//                        items.remove(position);
-//                        itemsAdapter.notifyDataSetChanged();
-//                        writeItems();
-//                        break;
-//                }
-//                return false;
-//            }
-//
-////            public void openPage(Class page) {
-////                startActivity(new Intent(Planning.this, Course1.class));
-////            }
-//        });
     }
 
+    //add item to into the add field
     public void onAddItem(View v) {
         EditText etNewItem = findViewById(R.id.etNewItem);
         String itemText = etNewItem.getText().toString();
@@ -117,13 +105,13 @@ public class Planning extends AppCompatActivity {
         etNewItem.setText("");
         writeItems();
 
-
+        //create intent that creates a new activity for a list item and copies the text of the list item
         Intent intent = new Intent(Planning.this, Course.class);
         intent.putExtra("name", itemText);
         intentsList.add(intent);
     }
 
-
+    //read the item that the user types
     private void readItems() {
         File filesDir = getFilesDir();
         File todoFile = new File(filesDir, "courses.txt");
@@ -134,6 +122,7 @@ public class Planning extends AppCompatActivity {
         }
     }
 
+    //put the item that the user typed in the listview
     private void writeItems() {
         File filesDir = getFilesDir();
         File todoFile = new File(filesDir, "courses.txt");

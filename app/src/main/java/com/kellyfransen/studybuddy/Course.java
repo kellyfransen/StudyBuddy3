@@ -36,11 +36,13 @@ public class Course extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
 
+        //create header that is the same as the course item
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
         TextView header = findViewById(R.id.textView);
         header.setText(name);
 
+        //create swipeable listview menu
         SwipeMenuListView listView = (SwipeMenuListView) findViewById(R.id.listView);
         readItems();
         itemsAdapter = new ArrayAdapter<String>(this,
@@ -51,17 +53,14 @@ public class Course extends Activity {
 
             @Override
             public void create(SwipeMenu menu) {
-                // create "delete" item
+                // create delete button
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getApplicationContext());
-                // set item background
                 deleteItem.setBackground(new ColorDrawable(Color.rgb(255,
                         255, 255)));
-                // set item width
                 deleteItem.setWidth(200);
-                // set cross icon
                 deleteItem.setIcon(R.drawable.cross);
-                // add to menu
+                // add the delete button
                 menu.addMenuItem(deleteItem);
 
             }
@@ -69,16 +68,12 @@ public class Course extends Activity {
 
         listView.setMenuCreator(creator);
 
+        //make the delete button delete a list item
         listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        // open course page
-                        //startActivity(new Intent(this, Planning.class));
-                        //openPage(Planning.class);
-                        break;
-                    case 1:
                         // delete course
                         items.remove(position);
                         itemsAdapter.notifyDataSetChanged();
@@ -87,22 +82,19 @@ public class Course extends Activity {
                 }
                 return false;
             }
-
-//            public void openPage(Class page) {
-//                startActivity(new Intent(Planning.this, Course1.class));
-//            }
         });
     }
 
+    //add item to into the add field
     public void onAddItem(View v) {
         EditText etNewItem = findViewById(R.id.etNewItem);
         String itemText = etNewItem.getText().toString();
         itemsAdapter.add(itemText);
         etNewItem.setText("");
         writeItems();
-
     }
 
+    //read the item that the user types
     private void readItems() {
         File filesDir = getFilesDir();
         File todoFile = new File(filesDir, "courses.txt");
@@ -113,6 +105,7 @@ public class Course extends Activity {
         }
     }
 
+    //put the item that the user typed in the listview
     private void writeItems() {
         File filesDir = getFilesDir();
         File todoFile = new File(filesDir, "courses.txt");

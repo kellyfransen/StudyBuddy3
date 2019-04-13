@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
+
+    //create buttons to direct to the planning and health page
     private Button button_planning;
     private Button button_health;
 
@@ -15,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Open planning activity when pressing planning button
         button_planning = findViewById(R.id.button_planning);
         button_planning.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        //Open health activity when pressing health button
         button_health = findViewById(R.id.button_health);
         button_health.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //open new activity
     public void openPage(Class page) {
         Intent intent = new Intent(this, page);
         startActivity(intent);
