@@ -20,10 +20,18 @@ import java.util.ArrayList;
  */
 public class CountWidget extends AppWidgetProvider {
     private static final String action = "ACTION";
+    private static int widgetId;
+
+    @Override
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        // There may be multiple widgets active, so update all of them
+        updateAppWidget(context, appWidgetManager, widgetId);
+    }
+
 
     //what to do on update of the widget
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
+    public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+                                       int appWidgetId) {
 
         //get name and position in the activeButtons list array
         String name = CountWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
@@ -38,25 +46,18 @@ public class CountWidget extends AppWidgetProvider {
         views.setInt(R.id.widgetButton, "setBackgroundResource", icon);
 
         //create intent with action and add the position int
-        Intent intent = new Intent(context, CountWidget.class);
-        intent.putExtra("position", pos);
-        intent.setAction(action);
+        Intent clickIntent = new Intent(context, CountWidget.class);
+        clickIntent.putExtra("position", pos);
+        clickIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        clickIntent.setAction(action);
 
         //broadcast PendingIntent to send on click
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, appWidgetId, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent(R.id.widgetButton, pendingIntent);
 
         //tell the widgetmanager to update
         appWidgetManager.updateAppWidget(appWidgetId, views);
-    }
 
-    @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-
-        // There may be multiple widgets active, so update all of them
-        for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
-        }
     }
 
 
@@ -68,7 +69,7 @@ public class CountWidget extends AppWidgetProvider {
 
             //get position from intent
             int position = intent.getIntExtra("position", 0);
-            Toast.makeText(context, position + "", Toast.LENGTH_SHORT).show();
+            widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
 
             //increment the countbutton count value
             Health.healthButtons.get(position).increment();
@@ -77,10 +78,11 @@ public class CountWidget extends AppWidgetProvider {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.count_widget);
             views.setTextViewText(R.id.widgetButton, Health.healthButtons.get(position).count + "");
 
+
             //create widgetmanager and update widget
-            ComponentName appWidget = new ComponentName(context, CountWidget.class);
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            appWidgetManager.updateAppWidget(appWidget, views);
+            //IMPORTANT: pass widgetId here to address only the widget you want to update
+            appWidgetManager.updateAppWidget(widgetId, views);
         }
     }
 }
