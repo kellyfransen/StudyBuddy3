@@ -64,7 +64,7 @@ public class Health extends AppCompatActivity implements View.OnClickListener, S
         display.getSize(size);
         screenWidth = size.x;
 
-        stepCountTV = (TextView) findViewById(R.id.stepCountTV);
+        stepCountTV = (TextView) findViewById(R.id.stepCountTV2);
 //create sensormanager for the step counter
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
