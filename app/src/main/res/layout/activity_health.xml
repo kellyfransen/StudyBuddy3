@@ -40,7 +40,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/stepCountTV"
+        android:id="@+id/stepCountTV2"
         android:layout_width="389dp"
         android:layout_height="62dp"
         android:layout_marginStart="8dp"
@@ -58,7 +58,7 @@
         app:layout_constraintVertical_bias="0.385" />
 
     <TextView
-        android:id="@+id/stepCountTV2"
+        android:id="@+id/stepCountTV"
         android:layout_width="238dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
